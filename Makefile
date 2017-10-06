@@ -1,29 +1,24 @@
-INC_DIR= /include
-SRC_DIR= ./src
-OBJ_DIR= ./obj
-SRC=			./src/Main.c \
-			./src/MatArith.c \
-			./src/MatIO.c \
+CC=gcc
+CFLAGS=-g -O2 -Wall
+OBJS=obj/Main.o obj/MatIO.o obj/MatArith.o
+LDFLAGS=
 
-OBJ=			$(SRC:.c=.o)
+all: MultMat
 
-DEPS=			$(INC_DIR)/MatArith.h $(INC_DIR)/MatIO.h
+MultMat: $(OBJS)
+	$(CC) -o MultMat $(LDFLAGS) $(OBJS)
 
-NAME=			 MultMat
+obj/Main.o: src/Main.c src/../include/MatArith.h src/../include/MatIO.h
+	$(CC) -o obj/Main.o -c $(CFLAGS) src/Main.c
 
-CFLAGS=			-Wall -Wextra -Werror -ansi -pedantic -I$(INC_DIR)
+obj/MatIO.o: src/MatIO.c src/../include/MatIO.h
+	$(CC) -o obj/MatIO.o -c $(CFLAGS) src/MatIO.c
 
-all:			$(NAME)
-
-$(NAME):		$(OBJ)
-	gcc -o $(NAME) $(OBJ)
+obj/MatArith.o: src/MatArith.c src/../include/MatArith.h
+	$(CC) -o obj/MatArith.o -c $(CFLAGS) src/MatArith.c
 
 clean:
-	rm -f $(OBJ)
-
-fclean:			clean
-	rm -f $(NAME)
-
-re:			fclean all
-
-.PHONY:	all clean fclean re
+	rm -f obj/Main.o
+	rm -f obj/MatIO.o
+	rm -f obj/MatArith.o
+	rm -f MultMat
