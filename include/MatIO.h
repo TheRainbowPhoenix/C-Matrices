@@ -1,14 +1,14 @@
-#ifndef STRUCT
-#define STRUCT
-
-
-struct Command
-{   char tableCmd[5];
-    char *NameCommand;
-    int size;
-
+struct Matrix {
+	int x;
+	int y;
+	int** mat;
 };
+typedef struct Matrix Matrix;
 
-extern struct Command CommandStructure[];
+void FWrite(char * fname, char * str);
 
-#endif
+void FWriteInt(char * fname, int n);
+
+void m_export(char * fname,Matrix * m);
+
+Matrix * m_read();
